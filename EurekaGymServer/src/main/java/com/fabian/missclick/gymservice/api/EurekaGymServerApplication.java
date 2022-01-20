@@ -2,14 +2,14 @@ package com.fabian.missclick.gymservice.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
-@EnableEurekaClient
+@EnableEurekaServer
 @SpringBootApplication
-public class UpdatedGymServiceApplication {
+public class EurekaGymServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UpdatedGymServiceApplication.class, args);
+		SpringApplication.run(EurekaGymServerApplication.class, args);
 	}
 
 }

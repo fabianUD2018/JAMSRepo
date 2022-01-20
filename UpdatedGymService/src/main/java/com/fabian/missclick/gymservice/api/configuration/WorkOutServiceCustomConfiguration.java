@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Primary;
 
 import reactor.core.publisher.Flux;
 
-@Configuration
+
 public class WorkOutServiceCustomConfiguration {
 
 	@Bean

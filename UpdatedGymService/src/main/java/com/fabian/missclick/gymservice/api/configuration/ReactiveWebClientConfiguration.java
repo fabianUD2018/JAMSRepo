@@ -10,7 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 
 @Configuration
-@LoadBalancerClient(name = "workout-service", configuration = WorkOutServiceCustomConfiguration.class)
+//@LoadBalancerClient(name = "workout-service", configuration = WorkOutServiceCustomConfiguration.class)
 public class ReactiveWebClientConfiguration {
 
 	@Bean
