@@ -49,7 +49,7 @@ public class WorkOutService {
 
 	public Mono<ServerResponse> postWortkout(ServerRequest req) {
 		Mono<WorkoutDocument> wD = req.bodyToMono(WorkoutDocument.class);
-
+		
 		return wD
 				
 				/*
@@ -58,11 +58,16 @@ public class WorkOutService {
 				 * savedExcercises.collectList().map(list -> { System.err.println(list);
 				 * w.setExercices(list); return w; }); })
 				 */
-				 
-				.flatMap(updatedWO -> repository.save(updatedWO))		
-		.flatMap(sW -> ServerResponse.created(URI.create("/workOuts/"+sW.getId())).body(Mono.just(sW), WorkoutDocument.class))
-		.onErrorResume(error->{
-			return ServerResponse.badRequest().body(Mono.just(error.getMessage()), String.class);});
+				.flatMap(updatedWO -> {
+					if (updatedWO.getName().endsWith("error")) {
+						throw new RuntimeException("error to test circuitbreaker");
+					}
+					return repository.save(updatedWO);
+					})	
+				
+		.flatMap(sW -> ServerResponse.created(URI.create("/workOuts/"+sW.getId())).body(Mono.just(sW), WorkoutDocument.class));
+		/*.onErrorResume(error->{
+			return ServerResponse.badRequest().body(Mono.just("the error es manage on on resume:"+error.getMessage()), String.class);});
 		/*
 		 * 	return wD.flatMap(w -> {
 			Flux<ExcerciseDocument> savedExcercises = repositoryExcercise.saveAll(w.getExercices());

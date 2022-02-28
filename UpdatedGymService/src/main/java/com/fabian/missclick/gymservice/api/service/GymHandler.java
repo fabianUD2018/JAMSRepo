@@ -21,20 +21,22 @@ public class GymHandler {
 	
 	public Mono<ServerResponse> getWorkOuts(){
 		Flux<WorkoutDTO> routine = gymService.getWorkOuts();
-		routine.doOnNext(System.out::println);
+		routine.log();
 		return routine
 		.collectList()
 		.flatMap(r -> {
-			if (r.size()==1 && r.get(0).getDuration()==0){
-				return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Mono.just(r), 				WorkoutDTO.class);
-			}
 			return ServerResponse.ok().body(Mono.just(r), WorkoutDTO.class);
 		});
 	}
 	
 	public Mono<ServerResponse> getClientAndWorkOuts(ServerRequest request){
 		String name = request.pathVariable("name");
-		return ServerResponse.ok().body(gymService.getClientWithWorkOuts(name), ClientDTO.class);
+		return ServerResponse.ok().body(gymService.circuitBreakerGetClientWithWorkOuts(name), ClientDTO.class);
+		
+	}
+	public Mono<ServerResponse> postWorkOut(ServerRequest request){
+		
+		return ServerResponse.ok().body(gymService.postWorkOut(request ), WorkoutDTO.class);
 		
 	}
 	

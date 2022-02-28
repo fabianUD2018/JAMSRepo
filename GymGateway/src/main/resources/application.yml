@@ -5,4 +5,4 @@ spring:
       routes:
       - id: workout-service
         uri: lb://workout-service
-        predicates:        - Path= /wout/api/**        filters:        - StripPrefix=2      - id: gym-service        uri: lb://gym-service        predicates:        - Path= /gs/api/**        filters:        - StripPrefix=2        - name: MoreComplex          args:             complexMessage: secret complex message            times: 2      - id: people-service        uri: lb://people-service        predicates:        - Path = /ps/api/**        filters:        - StripPrefix=2        
+        predicates:        - Path= /wout/api/**        filters:        - StripPrefix=2      - id: gym-service        uri: lb://gym-service        predicates:        - Path= /gs/api/**        filters:        - StripPrefix=2        - name: MoreComplex          args:             complexMessage: secret complex message            times: 2      - id: people-service        uri: lb://people-service        predicates:        - Path= /ps/api/**        filters:        - StripPrefix=2        

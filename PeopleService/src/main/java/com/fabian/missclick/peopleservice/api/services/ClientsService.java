@@ -16,6 +16,9 @@ public class ClientsService {
 	
 	public Client findClientByName(String name) {
 		
+		if (name.endsWith("error")) {
+			throw new RuntimeException("error to test circuitbreaker");
+		}
 		return repository.findByName(name).orElseThrow(()-> new RuntimeException("Requested Client does not Exist"));
 	}
 

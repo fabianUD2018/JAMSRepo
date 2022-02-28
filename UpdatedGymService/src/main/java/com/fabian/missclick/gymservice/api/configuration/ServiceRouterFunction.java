@@ -19,7 +19,9 @@ public class ServiceRouterFunction {
 	
 	@Bean
 	public RouterFunction<ServerResponse> controller(){
-		return RouterFunctions.route(RequestPredicates.GET("gymservice/workouts"), req->handler.getWorkOuts())
+		return RouterFunctions
+				.route(RequestPredicates.GET("gymservice/workouts"), req->handler.getWorkOuts())
+				.andRoute(RequestPredicates.POST("gymservice/workouts"), req->handler.postWorkOut(req))
 				.andRoute(RequestPredicates.GET("gymservice/clientWorkout/{name}"),  req->handler.getClientAndWorkOuts(req));
 	}
 }

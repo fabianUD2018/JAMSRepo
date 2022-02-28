@@ -18,7 +18,7 @@ public class ClientService {
 
 	
 	@Autowired
-	private WebClient.Builder restTemplateClient;
+	private WebClient.Builder webClient;
 	
 	/*
 	public ClientDTO getclientByName(String name) {
@@ -33,7 +33,7 @@ public class ClientService {
 		HashMap<String, String> pathVariables = new HashMap<>();
 		pathVariables.put("name", name);
 		
-		return restTemplateClient
+		return webClient
 				.build()
 				.get()
 				.uri("http://people-service/clients/{name}",  pathVariables )
